@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zuchu Whatsapp</title>
+  <!-- Font Awesome CDN for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    /* Ensure no scrolling and full viewport coverage */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    body {
+      width: 100%;
+      background-image: url('zuchucontact.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: Arial, sans-serif;
+      position: relative;
+    }
+
+    /* Floating window styles */
+    .floating-window {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 400px;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: rgba(128, 0, 128, 0.2);
+      z-index: 2;
+    }
+    .floating-window-top {
+      position: absolute;
+      top: calc(50% - 200px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 400px;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: rgba(128, 0, 128, 0.2);
+      z-index: 2;
+    }
+    .floating-message {
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-weight: 700;
+      font-size: 1.1em;
+      text-align: center;
+      margin-bottom: 15px;
+      z-index: 2;
+    }
+    .floating-message-top {
+      font-size: 1.3em;
+    }
+    .floating-whatsapp {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      z-index: 2;
+    }
+    .whatsapp-inside {
+      background-color: #25D366;
+      color: white;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      cursor: pointer;
+      font-size: 30px;
+      transition: background-color 0.3s, transform 0.2s;
+      position: relative;
+      z-index: 2;
+    }
+    .whatsapp-inside:hover {
+      background-color: #20c35e;
+      transform: scale(1.1);
+    }
+    /* SVG star shape styles */
+    .star-shape {
+      fill: currentColor;
+      opacity: 0;
+      transform: scale(0.5);
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Floating windows -->
+<div class="floating-window" id="bottomWindow">
+  <div class="floating-message">
+    UNAHITAJI ADA AU MTAJI KUKUZA BIASHARA YAKO? NITUMIE UJUMBE WHATSAPP UKIANZA NA NENO 'SHABIKI'
+  </div>
+  <div class="floating-whatsapp">
+    <a href="https://wa.me/255742380847?text=SHABIKI" target="_blank" aria-label="Chat on WhatsApp" class="whatsapp-inside">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+  </div>
+</div>
+
+<div class="floating-window-top" id="topWindow">
+  <div class="floating-message floating-message-top">
+    HAPPY NEW YEAR!
+  </div>
+</div>
+
+<!-- Container for stars -->
+<div id="starsContainer" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0;"></div>
+
+<script>
+  const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF', '#FFA500', '#FFC0CB', '#FFFFFF', '#FFFF66', '#66FF66', '#FF66FF'];
+  const container = document.getElementById('starsContainer');
+
+  const starSVG = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+      <polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9" fill="currentColor"/>
+    </svg>
+  `;
+
+  function createSVGStar(color, size) {
+    const div = document.createElement('div');
+    div.className = 'star-shape';
+    div.innerHTML = starSVG;
+    div.style.width = size + 'px';
+    div.style.height = size + 'px';
+    div.style.color = color;
+    return div;
+  }
+
+  // Get random start position on any edge
+  function getRandomStartPosition() {
+    const edge = Math.floor(Math.random() * 4);
+    switch (edge) {
+      case 0: // top
+        return { x: Math.random() * window.innerWidth, y: 0 };
+      case 1: // right
+        return { x: window.innerWidth, y: Math.random() * window.innerHeight };
+      case 2: // bottom
+        return { x: Math.random() * window.innerWidth, y: window.innerHeight };
+      case 3: // left
+        return { x: 0, y: Math.random() * window.innerHeight };
+    }
+  }
+
+  // Create star burst from all sides
+  function createStarBurst() {
+    const count = 15 + Math.floor(Math.random() * 20);
+    for (let i = 0; i < count; i++) {
+      const size = 40 + Math.random() * 60;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const star = createSVGStar(color, size);
+
+      const startPos = getRandomStartPosition();
+      star.style.left = startPos.x + 'px';
+      star.style.top = startPos.y + 'px';
+
+      // Random outward direction
+      const angle = Math.random() * 2 * Math.PI;
+      const distance = 100 + Math.random() * 300;
+      const dx = Math.cos(angle) * distance;
+      const dy = Math.sin(angle) * distance;
+
+      const duration = 1000 + Math.random() * 1500;
+
+      star.animate([
+        { transform: 'translate(0, 0) scale(0.5)', opacity: 1 },
+        { transform: `translate(${dx}px, ${dy}px) scale(2.5)`, opacity: 0 }
+      ], {
+        duration: duration,
+        easing: 'ease-out'
+      }).onfinish = () => {
+        star.remove();
+      };
+
+      container.appendChild(star);
+    }
+  }
+
+  // Run star burst periodically
+  setInterval(createStarBurst, 1500);
+</script>
+</body>
+</html>
+
+
+
+
+
