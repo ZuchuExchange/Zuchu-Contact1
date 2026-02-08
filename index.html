@@ -45,7 +45,13 @@
     padding: 15px;
     border-radius: 8px;
     display: flex;
+    flex-direction: column;
     align-items: center;
+  }
+  .email-inner {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
   }
   .email-text {
     font-weight: bold;
@@ -59,6 +65,18 @@
     border-radius: 4px;
     background-color: #4CAF50;
     color: white;
+  }
+  /* "Ingia" button styling */
+  .ingia-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #008CBA;
+    color: white;
+    text-decoration: none;
+    margin-top: 15px;
   }
   /* Tiny alert style */
   .small-alert {
@@ -82,15 +100,19 @@
     <div class="content">
       <div class="center-text">
         Iwapo Unahitaji Ada Au Mtaji Kukuza Biashara Yako, Nitumie Ujumbe Hivi Sasa.<br>
-        Kuwasiliana nami Ingiza Jina Yako(Name) Na BaruaPepe(Email). <br>
+        Kuwasiliana nami Ingiza Jina Yako (Name) Na BaruaPepe (Email). <br>
         Iwapo huna Barua pepe, tumia <strong>zuchu@gmail.com</strong>
       </div>
       
       <!-- Email section inside background image -->
       <div class="email-section">
-        <span class="email-text" id="email">zuchu@gmail.com</span>
-        <button class="copy-btn" onclick="copyEmail()">Copy</button>
-        <span class="small-alert" id="smallCopyAlert">Copied</span>
+        <div class="email-inner">
+          <span class="email-text" id="email">zuchu@gmail.com</span>
+          <button class="copy-btn" onclick="copyEmail()">Copy</button>
+          <span class="small-alert" id="smallCopyAlert">Copied</span>
+        </div>
+        <!-- "Ingia" button linking to zuchuexchange.com -->
+        <a href="https://zuchuexchange.com" target="_blank" class="ingia-btn">Ingia</a>
       </div>
     </div>
   </div>
@@ -106,30 +128,6 @@
       }, 2000);
     });
   }
-</script>
-
-<!-- LiveChat Widget Script -->
-<script>
-    window.__lc = window.__lc || {};
-    window.__lc.license = 19495137;
-    window.__lc.integration_name = "manual_channels";
-    window.__lc.product_name = "livechat";
-
-    (function(n,t,c){
-        function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}
-        var e={_q:[],_h:null,_v:"2.0",
-        on:function(){i(["on",c.call(arguments)])},
-        once:function(){i(["once",c.call(arguments)])},
-        off:function(){i(["off",c.call(arguments)])},
-        get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},
-        call:function(){i(["call",c.call(arguments)])},
-        init:function(){var n=t.createElement("script");
-        n.async=!0;n.type="text/javascript";
-        n.src="https://cdn.livechatinc.com/tracking.js";
-        t.head.appendChild(n)}};
-        !n.__lc.asyncInit&&e.init();
-        n.LiveChatWidget=n.LiveChatWidget||e
-    }(window,document,[].slice));
 </script>
 </body>
 </html>
